@@ -8,15 +8,15 @@
 // * This method logs out a phrase `Hello my name is Fred, I am from Bedrock` where `name` and `location` are the object's own props
 
 class Person {
-    Constructor (name) {
-        this.name = name;
-        this.age = age;
-        this.location = location;
+    constructor (attr) {
+        this.name = attr.name;
+        this.age = attr.age;
+        this.location = attr.location;
     }
     speak() {
         return `Hello my name is ${this.name}, I am from ${this.location}`;
     }
-}
+};
 
 // / #### Instructor
 
@@ -30,11 +30,12 @@ class Person {
 //   * `demo` receives a `subject` string as an argument and logs out the phrase 'Today we are learning about {subject}' where subject is the param passed in.
 //   * `grade` receives a `student` object and a `subject` string as arguments and logs out '{student.name} receives a perfect score on {subject}'
 
-class Instructor extends Person {
-    Constructor(name) {
-        this.specialty = specialty;
-        this.favLanguage = favLanguage;
-        this.catchPhrase = catchPhrase;
+class Instructors extends Person {
+    constructor(attr) {
+        super(attr);
+        this.specialty = attr.specialty;
+        this.favLanguage = attr.favLanguage;
+        this.catchPhrase = attr.catchPhrase;
     }
     demo(subject) {
         return `Today we are learning about ${subject}`;
@@ -42,7 +43,7 @@ class Instructor extends Person {
     grade(student, subject) {
         return `${student.name} receives a perfect score on ${subject}`;
     }
-}
+};
 
 //   #### Student
 
@@ -57,7 +58,23 @@ class Instructor extends Person {
 //   * `PRAssignment` a method that receives a subject as an argument and logs out that the `student.name has submitted a PR for {subject}`
 //   * `sprintChallenge` similar to PRAssignment but logs out `student.name has begun sprint challenge on {subject}`
 
-
+class Student extends Person {
+    constructor(attr) {
+        super(attr);
+        this.previousBackground = attr.previousBackground;
+        this.className = attr.className;
+        this.favSubjects = attr.favSubjects;
+    }
+    listsSubjects() {
+        return this.favSubjects;
+    }
+    PRAssignment(subject) {
+        return `${this.name} has submitted a PR for ${subject}`;
+    }
+    sprintChallenge(subject) {
+        return `${this.name} has begun sprint challenge on ${subject}`
+    }
+};
 
 //   #### Project Manager
 
@@ -69,6 +86,96 @@ class Instructor extends Person {
 // * ProjectManagers have the following Methods:
 //   * `standUp` a method that takes in a slack channel and logs `{name} announces to {channel}, @channel standy times!​​​​​
 //   * `debugsCode` a method that takes in a student object and a subject and logs out `{name} debugs {student.name}'s code on {subject}`
+
+class ProjectManagers extends Instructors {
+    constructor(attr) {
+        super(attr);
+        this.gradClassName = attr.gradClassName;
+        this.favInstructor = attr.favInstructor;
+    }
+    standup(channel) {
+        return `${this.name} announces to ${channel}, @${channel} standy times!`;
+    }
+    debugsCode(student, subject) {
+        return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    }
+};
+//Student
+const jeff = new Student({
+    name: 'Jeff',
+    age: 29,
+    location: 'Orange County, California',
+    previousBackground: 'Management',
+    className: 'Full-Stack Web-Dev',
+    favSubjects: ['math', 'science', 'music']
+});
+
+const kyle = new Student({
+    name: 'Kyle',
+    age: 29,
+    location: 'Bakersfield, California',
+    previousBackground: 'Civil Engineering',
+    className: 'Full-Stack Web-Dev',
+    favSubjects: ['math', 'science', 'music']
+});
+
+const michael = new Student({
+    name: 'Michael',
+    age: 28,
+    location: 'Los Angeles, California',
+    previousBackground: 'Account Manager',
+    className: 'Full-Stack Web-Dev',
+    favSubjects: ['theater', 'music', 'philosophy']
+});
+
+
+//ProjectManagers
+const nestor = new ProjectManagers({
+    name: 'Nestor',
+    age: 28,
+    location: 'San Diego, California',
+    specialty: 'Troubleshooting',
+    favLanguage: 'Spanish',
+    catchPhrase: 'Dude....',
+    gradClassName: '???',
+    favInstructor: 'Kobe Bryant'
+})
+
+const gabe = new ProjectManagers({
+    name: 'Gabe',
+    age: 27,
+    location: 'Orange County, California',
+    specialty: 'Admin',
+    favLanguage: 'Vietnamese',
+    catchPhrase: 'Thats right, B-Beee',
+    gradClassName: 'MBA',
+    favInstructor: 'Adam Morrison'
+})
+
+//Logging classes
+console.log(Person);
+console.log(Instructors);
+console.log(Student);
+console.log(ProjectManagers);
+
+//logging Person methods
+console.log(jeff);
+console.log(jeff.speak());
+
+//logging Student methods
+console.log(kyle.listsSubjects());
+console.log(jeff.PRAssignment('CSS II'));
+console.log(michael.sprintChallenge('Adv CSS'));
+
+//logging Instructors methods
+console.log(nestor);
+console.log(nestor.speak());
+console.log(gabe.demo('if-else statements'));
+console.log(nestor.grade(kyle, 'HTML symantics'));
+
+//logging ProjectManagers methods
+console.log(nestor.standup('The Homies'));
+console.log(gabe.debugsCode(michael, 'dogs'));
 
 
 

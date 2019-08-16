@@ -65,8 +65,10 @@ class Student extends Person {
         this.className = attr.className;
         this.favSubjects = attr.favSubjects;
     }
-    listsSubjects() {
-        return this.favSubjects;
+    listsSubjects(){
+        this.favSubjects.forEach(function(element){
+            console.log(element);
+        })
     }
     PRAssignment(subject) {
         return `${this.name} has submitted a PR for ${subject}`;
@@ -163,7 +165,7 @@ console.log(jeff);
 console.log(jeff.speak());
 
 //logging Student methods
-console.log(kyle.listsSubjects());
+kyle.listsSubjects();
 console.log(jeff.PRAssignment('CSS II'));
 console.log(michael.sprintChallenge('Adv CSS'));
 
@@ -186,5 +188,3 @@ console.log(gabe.debugsCode(michael, 'dogs'));
 // * Add a graduate method to a student.
 //   * This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
 //   * If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
-
-
